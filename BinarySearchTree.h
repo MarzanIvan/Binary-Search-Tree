@@ -9,6 +9,15 @@ struct BinarySearchTree {
 		array = nullptr;
 		size = 0;
 	}
+	
+	BinarySearchTree(int* array, size_t size) {
+		int IndexOfLatestParentNode = (size >> 1) - 1;
+		this->size = size;
+		this->array = array;
+		for (int i = 0; i >= 0; i--) {
+			Heapify(i, size);
+		}
+	}
 
 	~BinarySearchTree() {
 		if (size) {
