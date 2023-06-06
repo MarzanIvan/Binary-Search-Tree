@@ -3,7 +3,7 @@
 template <class Ttype>
 struct BinarySearchTree {
 	Ttype* array;
-	int size;
+	size_t size;
 
 	BinarySearchTree() {
 		array = nullptr;
@@ -11,28 +11,26 @@ struct BinarySearchTree {
 	}
 	
 	BinarySearchTree(int* array, size_t size) {
-		int IndexOfLatestParentNode = (size >> 1) - 1;
 		this->size = size;
 		this->array = array;
-		for (int i = 0; i >= 0; i--) {
-			Heapify(i, size);
+		for (int i = (size >> 1) - 1; i >= 0; i--) {
+			heapify(i, this->size - 1);
 		}
 	}
 
 	~BinarySearchTree() {
-		if (size) {
-			delete[] array;
-		}
+		
 	}
 
-	void Heapify(int index, size_t size);
+	void heapify(int index, size_t size);
 	
+	int* sort();
 };
 
 template <class Ttype>
-void BinarySearchTree<Ttype>::Heapify(int index, size_t size) {
-	int LeftNodeIndex = (i << 1) + 1;
-	int RightNodeIndex = (i << 1) + 2;
+inline void BinarySearchTree<Ttype>::heapify(int index, size_t size) {
+	int LeftNodeIndex = (index << 1) + 1;
+	int RightNodeIndex = (index << 1) + 2;
 	int MaxNodeIndex = index;
 	if (LeftNodeIndex <= size && array[LeftNodeIndex] > array[MaxNodeIndex]) {
 		MaxNodeIndex = LeftNodeIndex;
@@ -44,7 +42,18 @@ void BinarySearchTree<Ttype>::Heapify(int index, size_t size) {
 		auto temp = array[MaxNodeIndex];
 		array[MaxNodeIndex] = array[index];
 		array[index] = temp;
-		Heapify(MaxNodeIndex, size);
+		heapify(MaxNodeIndex, size);
 	}
+}
+
+template<class Ttype>
+inline int* BinarySearchTree<Ttype>::sort() {
+	for (int i = this->size - 1; i > 0;) {
+		auto max = array[0];
+		array[0] = array[i];
+		array[i] = max;
+		heapify(0, --i);
+	}
+	return this->array;
 }
 

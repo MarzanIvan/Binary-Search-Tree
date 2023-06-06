@@ -37,10 +37,10 @@ void showarray(int* array, int size) {
 	}
 }
 
+#include "BinarySearchTree.h"
+
 int main() {
 	int array[10] = { 16,17,9,10,5,6,8,1,2,4 };
-	Heapify(array,0,10);
-	int* heap = BuildBinaryHeap(array,10);
-
-	showarray(heap, 10);
+	BinarySearchTree<int> b(array, 10);
+	showarray(b.sort(), b.size);
 }
