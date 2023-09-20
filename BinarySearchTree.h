@@ -1,3 +1,9 @@
+/*
+	Copyright (C) 2023 Marzan Ivan
+ 	Binary Search Tree program header
+	GNU GENERAL PUBLIC LICENSE v3.0
+*/
+
 #pragma once
 
 template <class Ttype>
